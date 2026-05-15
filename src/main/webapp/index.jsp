@@ -64,7 +64,7 @@
                             <img src="images/<%= t.getImage() %>" class="card-img-top" alt="<%= t.getTitle() %>" style="height: 200px; object-fit: cover;">
                             <% } else { %>
                             <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
-                                Sin imagen
+                                No image
                             </div>
                             <% } %>
                         </a>
@@ -87,7 +87,7 @@
                         <div class="card-footer bg-transparent border-top-0 mb-2">
 
                             <a href="tripDetails.jsp?id=<%= t.getId() %>" class="btn btn-outline-primary w-100 mb-2">
-                                Ver ficha completa
+                                See more details
                             </a>
 
                             <% if (user != null && "ADMIN".equals(user.getRole())) { %>
@@ -108,7 +108,7 @@
                 } else {
                 %>
                 <div class="col-12 text-center">
-                    <p>No hay viajes disponibles.</p>
+                    <p>No trips available</p>
                 </div>
                 <%
                     }
