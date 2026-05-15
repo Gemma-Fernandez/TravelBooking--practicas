@@ -24,6 +24,28 @@ public interface UserDao {
     """)
 
     void add(@BindBean User user);
+
+    @SqlQuery("""
+    SELECT * FROM users
+    WHERE id = :id
+""")
+
+    User getById(int id);
+
+    @SqlUpdate("""
+    UPDATE users
+    SET
+        name = :name,
+        email = :email,
+        password = :password,
+        role = :role,
+        active = :active,
+        register_date = :registerDate,
+        balance = :balance
+    WHERE id = :id
+""")
+
+    void update(@BindBean User user);
     // Método para el Login
     @SqlQuery("SELECT * FROM users WHERE email = :email AND password = :password")
     User getByEmailAndPassword(@Bind("email") String email, @Bind("password") String password);

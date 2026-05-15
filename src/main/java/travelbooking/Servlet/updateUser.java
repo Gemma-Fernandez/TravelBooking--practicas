@@ -15,9 +15,9 @@ import java.time.LocalDate;
 
 import static travelbooking.dao.Database.jdbi;
 
-@WebServlet("/addUser")
+@WebServlet("/updateUser")
 
-public class addUser extends HttpServlet {
+public class updateUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request,
@@ -26,17 +26,22 @@ public class addUser extends HttpServlet {
 
         try {
 
-            // CONNECT DATABASE
             Database.connect();
 
-            // GET DATA
-            String name = request.getParameter("name");
+            int id =
+                    Integer.parseInt(request.getParameter("id"));
 
-            String email = request.getParameter("email");
+            String name =
+                    request.getParameter("name");
 
-            String password = request.getParameter("password");
+            String email =
+                    request.getParameter("email");
 
-            String role = request.getParameter("role");
+            String password =
+                    request.getParameter("password");
+
+            String role =
+                    request.getParameter("role");
 
             boolean active =
                     Boolean.parseBoolean(request.getParameter("active"));
@@ -47,9 +52,8 @@ public class addUser extends HttpServlet {
             double balance =
                     Double.parseDouble(request.getParameter("balance"));
 
-            // CREATE USER
             User user = new User(
-                    0,
+                    id,
                     name,
                     email,
                     password,
@@ -59,13 +63,11 @@ public class addUser extends HttpServlet {
                     balance
             );
 
-            // DAO
             UserDao userDao = jdbi.onDemand(UserDao.class);
 
-            userDao.add(user);
+            userDao.update(user);
 
-            // REDIRECT
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("users.jsp");
 
         } catch (Exception e) {
 
