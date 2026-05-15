@@ -143,16 +143,6 @@
 
                     </li>
 
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="searchBookings.jsp">
-
-                            Search Booking
-
-                        </a>
-
-                    </li>
 
 
                     <% } %>
