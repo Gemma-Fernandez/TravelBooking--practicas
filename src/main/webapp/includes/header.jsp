@@ -60,31 +60,6 @@
                         </a>
 
                     </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="searchTrips.jsp">
-
-                            Search Trips
-
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="bookings.jsp">
-
-                            Bookings
-
-                        </a>
-
-                    </li>
-
-                    <% } %>
-
                     <!-- SOLO ADMIN -->
                     <% if (user != null && "ADMIN".equals(user.getRole())) { %>
 
@@ -109,6 +84,21 @@
                         </a>
 
                     </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="bookings.jsp">
+
+                            Bookings
+
+                        </a>
+
+                    </li>
+
+                    <% } %>
+
+
 
                     <li class="nav-item">
 

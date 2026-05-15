@@ -12,34 +12,60 @@
 <%@ page import="travelbooking.model.User" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+
+<%@ include file="includes/header.jsp" %>
+
 <%
+  // Nos aseguramos de conectar a la base de datos
+  try {
+    Database.connect();
+  } catch (ClassNotFoundException e) {
+    throw new ServletException("Database error", e);
+  }
 
+  TripDao tripDao = Database.jdbi.onDemand(TripDao.class);
 
-  // Obtenemos todos los viajes de la base de datos
-  List<Trip> trips = Database.jdbi.onDemand(TripDao.class).getAll();
+  //Recogemos el parámetro de búsqueda si existe
+  String search = request.getParameter("search");
+  List<Trip> trips;
 
-  // Obtenemos el usuario actual de la sesión para mostrar/ocultar botones
-  User currentUser = (User) session.getAttribute("user");
+  // si hay búsqueda filtra, si no, trae todos
+  if (search != null && !search.trim().isEmpty()) {
+    trips = tripDao.searchTrips(search);
+  } else {
+    trips = tripDao.getAll();
+  }
 %>
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Viajes Disponibles - TravelBooking</title>
+  <title>Trips - TravelBooking</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body style="padding-top: 70px;">
 
-<jsp:include page="includes/header.jsp" />
-
 <div class="container mt-5">
 
-  <h2 class="mb-4">Available Trips</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Available Trips</h2>
 
-  <table class="table table-bordered table-hover align-middle">
+    <%-- BUSCADOR INTEGRADO --%>
+    <form action="trips.jsp" method="GET" class="d-flex w-50">
+      <input type="text" name="search" class="form-control me-2"
+             placeholder="Search by title, country or city..."
+             value="<%= (search != null) ? search : "" %>">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <% if (search != null) { %>
+      <a href="trips.jsp" class="btn btn-outline-secondary ms-2">Clear</a>
+      <% } %>
+    </form>
+  </div>
 
+
+  <table class="table table-bordered table-hover align-middle shadow-sm">
     <thead class="table-dark">
     <tr>
       <th>ID</th>
@@ -54,12 +80,10 @@
     </thead>
 
     <tbody>
-
     <%
       if (trips != null && !trips.isEmpty()) {
         for(Trip t : trips) {
     %>
-
     <tr>
       <td><%= t.getId() %></td>
       <td><strong><%= t.getTitle() %></strong></td>
@@ -69,51 +93,38 @@
       <td><%= t.getDepartureDate() %></td>
       <td>
         <% if (t.isActive()) { %>
-        <span class="badge bg-success">Activo</span>
+        <span class="badge bg-success">Active</span>
         <% } else { %>
-        <span class="badge bg-danger">Inactivo</span>
+        <span class="badge bg-danger">Inactive</span>
         <% } %>
       </td>
 
       <td>
-        <a href="tripDetails.jsp?id=<%= t.getId() %>" class="btn btn-info btn-sm">
-          View Details
-        </a>
+        <a href="tripDetails.jsp?id=<%= t.getId() %>" class="btn btn-info btn-sm">View</a>
 
-        <% if (currentUser != null && "ADMIN".equals(currentUser.getRole())) { %>
-
-        <a href="editTrip.jsp?id=<%= t.getId() %>" class="btn btn-warning btn-sm">
-          Edit
-        </a>
-
+        <% if (user != null && "ADMIN".equals(user.getRole())) { %>
+        <a href="editTrip.jsp?id=<%= t.getId() %>" class="btn btn-warning btn-sm">Edit</a>
         <a href="deleteTrip?id=<%= t.getId() %>" class="btn btn-danger btn-sm"
-           onclick="return confirm('¿Seguro que quieres eliminar este viaje?')">
-          Delete
-        </a>
-
+           onclick="return confirm('Are you sure you want to delete this trip?')">Delete</a>
         <% } %>
       </td>
-
     </tr>
-
     <%
       }
     } else {
     %>
     <tr>
-      <td colspan="8" class="text-center">No trips available at the moment.</td>
+      <td colspan="8" class="text-center">No trips found matching your criteria.</td>
     </tr>
     <%
       }
     %>
-
     </tbody>
-
   </table>
 
 </div>
 
-<jsp:include page="includes/footer.jsp" />
+<%@ include file="includes/footer.jsp" %>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
