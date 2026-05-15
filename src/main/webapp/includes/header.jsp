@@ -132,6 +132,17 @@
 
                     </li>
 
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="searchUsers.jsp">
+
+                            Search User
+
+                        </a>
+
+                    </li>
+
 
                     <% } %>
 

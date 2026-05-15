@@ -36,6 +36,16 @@ public interface UserDao {
 
     User getById(@Bind("id") int id);
 
+    @SqlQuery("""
+    SELECT * FROM users
+    WHERE
+        LOWER(name) LIKE LOWER(CONCAT('%', :search, '%'))
+        OR LOWER(email) LIKE LOWER(CONCAT('%', :search, '%'))
+        OR LOWER(role) LIKE LOWER(CONCAT('%', :search, '%'))
+""")
+
+    List<User> searchUsers(@Bind("search") String search);
+
     // UPDATE USER
     @SqlUpdate("""
         UPDATE users
