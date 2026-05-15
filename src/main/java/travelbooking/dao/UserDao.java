@@ -1,6 +1,7 @@
 package travelbooking.dao;
 
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
+import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
@@ -23,4 +24,7 @@ public interface UserDao {
     """)
 
     void add(@BindBean User user);
+    // Método para el Login
+    @SqlQuery("SELECT * FROM users WHERE email = :email AND password = :password")
+    User getByEmailAndPassword(@Bind("email") String email, @Bind("password") String password);
 }
