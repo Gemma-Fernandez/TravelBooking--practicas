@@ -19,11 +19,6 @@ public interface TripDao {
     @RegisterBeanMapper(Trip.class) // Mapea las columnas de DB a atributos de Lombok
     List<Trip> getAll();
 
-    @SqlQuery("""
-        SELECT * FROM trips
-        WHERE id = :id
-    """)
-    Trip getById(@Bind("id") int id);
 
     @SqlQuery("SELECT * FROM trips WHERE id = :id")
     @RegisterBeanMapper(Trip.class)
