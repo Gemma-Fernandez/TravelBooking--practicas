@@ -74,7 +74,20 @@
     <div class="alert alert-warning">No se ha encontrado el viaje solicitado.</div>
     <% } %>
 
-    <a href="trips.jsp" class="btn btn-secondary mt-4">Volver a los viajes</a>
+    <%
+        //Preguntamos al navegador de qué página viene el usuario
+        String paginaAnterior = request.getHeader("Referer");
+
+        //Asumimos que vuelve a la página principal
+        String rutaVolver = "index.jsp";
+
+        //Si la página de la que viene contiene "trips.jsp" cambiamos la ruta
+        if (paginaAnterior != null && paginaAnterior.contains("trips.jsp")) {
+            rutaVolver = "trips.jsp";
+        }
+    %>
+
+    <a href="<%= rutaVolver %>" class="btn btn-secondary mt-4">Volver atrás</a>
 
 </div>
 
