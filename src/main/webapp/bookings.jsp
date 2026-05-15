@@ -1,35 +1,44 @@
 <%@ page import="java.util.List" %>
-
 <%@ page import="travelbooking.dao.BookingDao" %>
 <%@ page import="travelbooking.dao.Database" %>
 <%@ page import="travelbooking.dao.UserDao" %>
 <%@ page import="travelbooking.dao.TripDao" %>
-
 <%@ page import="travelbooking.model.Booking" %>
 <%@ page import="travelbooking.model.User" %>
 <%@ page import="travelbooking.model.Trip" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+
+<%@ include file="includes/header.jsp" %>
 
 <%
 
-    Database.connect();
 
-    List<Booking> bookings =
-            Database.jdbi
-                    .onDemand(BookingDao.class)
-                    .getAll();
+    if (user == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
 
-    UserDao userDao =
-            Database.jdbi
-                    .onDemand(UserDao.class);
+    try {
+        Database.connect();
+    } catch (ClassNotFoundException e) {
+        throw new ServletException("Database error", e);
+    }
 
-    TripDao tripDao =
-            Database.jdbi
-                    .onDemand(TripDao.class);
+    BookingDao bookingDao = Database.jdbi.onDemand(BookingDao.class);
+    UserDao userDao = Database.jdbi.onDemand(UserDao.class);
+    TripDao tripDao = Database.jdbi.onDemand(TripDao.class);
 
+    List<Booking> bookings;
+
+
+    if ("ADMIN".equals(user.getRole())) {
+        bookings = bookingDao.getAll();
+    } else {
+        bookings = bookingDao.getByUserId(user.getId());
+    }
 %>
+
 
 <!doctype html>
 <html lang="en">
@@ -50,7 +59,7 @@
 <body style="padding-top: 70px;">
 
 <!-- HEADER -->
-<%@ include file="includes/header.jsp" %>
+
 
 <div class="container mt-5">
 
