@@ -2,8 +2,12 @@
 
 <%@ page import="travelbooking.dao.BookingDao" %>
 <%@ page import="travelbooking.dao.Database" %>
+<%@ page import="travelbooking.dao.UserDao" %>
+<%@ page import="travelbooking.dao.TripDao" %>
 
 <%@ page import="travelbooking.model.Booking" %>
+<%@ page import="travelbooking.model.User" %>
+<%@ page import="travelbooking.model.Trip" %>
 
 <%@ page contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
@@ -16,6 +20,14 @@
             Database.jdbi
                     .onDemand(BookingDao.class)
                     .getAll();
+
+    UserDao userDao =
+            Database.jdbi
+                    .onDemand(UserDao.class);
+
+    TripDao tripDao =
+            Database.jdbi
+                    .onDemand(TripDao.class);
 
 %>
 
@@ -46,8 +58,7 @@
         Bookings
     </h2>
 
-    <!-- ADMIN -->
-    <% if (user != null && "ADMIN".equals(user.getRole())) { %>
+    <% if (user != null) { %>
 
     <a href="createBooking.jsp"
        class="btn btn-success mb-3">
@@ -64,11 +75,9 @@
 
         <tr>
 
-            <th>ID</th>
+            <th>User</th>
 
-            <th>User ID</th>
-
-            <th>Trip ID</th>
+            <th>Trip</th>
 
             <th>People</th>
 
@@ -90,20 +99,22 @@
 
             for(Booking booking : bookings){
 
+                User bookingUser =
+                        userDao.getById(booking.getUserId());
+
+                Trip trip =
+                        tripDao.getById(booking.getTripId());
+
         %>
 
         <tr>
 
             <td>
-                <%= booking.getId() %>
+                <%= bookingUser.getName() %>
             </td>
 
             <td>
-                <%= booking.getUserId() %>
-            </td>
-
-            <td>
-                <%= booking.getTripId() %>
+                <%= trip.getTitle() %>
             </td>
 
             <td>
@@ -124,7 +135,6 @@
 
             <td>
 
-                <!-- SOLO ADMIN -->
                 <% if (user != null && "ADMIN".equals(user.getRole())) { %>
 
                 <a href="updateBooking.jsp?id=<%= booking.getId() %>"
