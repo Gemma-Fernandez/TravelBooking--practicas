@@ -35,6 +35,7 @@
                 <!-- MENU -->
                 <ul class="navbar-nav me-auto">
 
+                    <!-- HOME -->
                     <li class="nav-item">
 
                         <a class="nav-link active"
@@ -126,6 +127,17 @@
                            href="users.jsp">
 
                             Users
+
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="createUser.jsp">
+
+                            Add User
 
                         </a>
 
