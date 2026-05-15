@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import travelbooking.dao.BookingDao;
 import travelbooking.dao.Database;
+import travelbooking.dao.TripDao;
+
 import travelbooking.model.Booking;
+import travelbooking.model.Trip;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -59,7 +62,30 @@ public class addBooking extends HttpServlet {
             BookingDao bookingDao =
                     jdbi.onDemand(BookingDao.class);
 
+            TripDao tripDao =
+                    jdbi.onDemand(TripDao.class);
+
+            // SAVE BOOKING
             bookingDao.add(booking);
+
+            // GET TRIP
+            Trip trip =
+                    tripDao.getById(tripId);
+
+            // CALCULATE NEW SEATS
+            int newSeats =
+                    trip.getSeats() - people;
+
+            // ACTIVE?
+            boolean active =
+                    newSeats > 0;
+
+            // UPDATE TRIP
+            tripDao.updateSeatsAndActive(
+                    tripId,
+                    newSeats,
+                    active
+            );
 
             response.sendRedirect("bookings.jsp");
 

@@ -15,7 +15,7 @@
   List<Trip> trips =
           Database.jdbi
                   .onDemand(TripDao.class)
-                  .getAll();
+                  .getAvailableTrips();
 
 %>
 
