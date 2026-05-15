@@ -5,13 +5,11 @@ import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-
 import travelbooking.model.Booking;
 
 import java.util.List;
 
 @RegisterRowMapper(BookingMapper.class)
-
 public interface BookingDao {
 
     // GET ALL BOOKINGS
@@ -23,8 +21,6 @@ public interface BookingDao {
         SELECT * FROM bookings
         WHERE id = :id
     """)
-
-
     Booking getById(@Bind("id") int id);
 
     // ADD BOOKING
@@ -34,7 +30,6 @@ public interface BookingDao {
         VALUES
         (:userId, :tripId, :people, :totalPrice, :bookingDate, :confirmed)
     """)
-
     void add(@BindBean Booking booking);
 
     // UPDATE BOOKING
@@ -49,16 +44,16 @@ public interface BookingDao {
             confirmed = :confirmed
         WHERE id = :id
     """)
-
     void update(@BindBean Booking booking);
 
-    @SqlQuery("""
-    SELECT * FROM bookings
-    WHERE
-        CAST(user_id AS CHAR) LIKE CONCAT('%', :search, '%')
-        OR CAST(trip_id AS CHAR) LIKE CONCAT('%', :search, '%')
-""")
 
+    @SqlQuery("""
+        SELECT b.* FROM bookings b
+        JOIN users u ON b.user_id = u.id
+        JOIN trips t ON b.trip_id = t.id
+        WHERE u.name LIKE CONCAT('%', :search, '%')
+           OR t.title LIKE CONCAT('%', :search, '%')
+    """)
     List<Booking> searchBookings(@Bind("search") String search);
 
     // DELETE BOOKING
@@ -66,9 +61,9 @@ public interface BookingDao {
         DELETE FROM bookings
         WHERE id = :id
     """)
-
     void delete(@Bind("id") int id);
 
+    // GET BOOKINGS FOR A SPECIFIC USER
     @SqlQuery("SELECT * FROM bookings WHERE user_id = :userId")
     List<Booking> getByUserId(@Bind("userId") int userId);
 }
