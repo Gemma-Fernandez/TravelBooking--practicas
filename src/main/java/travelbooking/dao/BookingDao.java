@@ -24,6 +24,7 @@ public interface BookingDao {
         WHERE id = :id
     """)
 
+
     Booking getById(@Bind("id") int id);
 
     // ADD BOOKING
