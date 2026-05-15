@@ -41,7 +41,7 @@ public class AddTripServlet extends HttpServlet {
         Part filePart = request.getPart("imageFile");
         String fileName = filePart.getSubmittedFileName();
 
-        // Si el admin no sube foto, evitamos que rompa poniendo una cadena vacía
+        // Si admin no sube foto, evitamos que rompa poniendo una cadena vacía
         if (fileName == null || fileName.isEmpty()) {
             fileName = "";
         } else {
