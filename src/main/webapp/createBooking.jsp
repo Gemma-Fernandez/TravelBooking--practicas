@@ -101,19 +101,7 @@
            placeholder="People"
            required>
 
-    <!-- TOTAL PRICE -->
-    <input type="number"
-           step="0.01"
-           name="totalPrice"
-           class="form-control mb-3"
-           placeholder="Total Price"
-           required>
 
-    <!-- BOOKING DATE -->
-    <input type="date"
-           name="bookingDate"
-           class="form-control mb-3"
-           required>
 
     <!-- CONFIRMED -->
     <select name="confirmed"

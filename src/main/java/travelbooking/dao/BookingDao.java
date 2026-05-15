@@ -34,7 +34,6 @@ public interface BookingDao {
         VALUES
         (:userId, :tripId, :people, :totalPrice, :bookingDate, :confirmed)
     """)
-
     void add(@BindBean Booking booking);
 
     // UPDATE BOOKING
@@ -49,16 +48,15 @@ public interface BookingDao {
             confirmed = :confirmed
         WHERE id = :id
     """)
-
     void update(@BindBean Booking booking);
 
+    // SEARCH BOOKINGS
     @SqlQuery("""
-    SELECT * FROM bookings
-    WHERE
-        CAST(user_id AS CHAR) LIKE CONCAT('%', :search, '%')
-        OR CAST(trip_id AS CHAR) LIKE CONCAT('%', :search, '%')
-""")
-
+        SELECT * FROM bookings
+        WHERE
+            CAST(user_id AS CHAR) LIKE CONCAT('%', :search, '%')
+            OR CAST(trip_id AS CHAR) LIKE CONCAT('%', :search, '%')
+    """)
     List<Booking> searchBookings(@Bind("search") String search);
 
     // DELETE BOOKING
@@ -66,7 +64,6 @@ public interface BookingDao {
         DELETE FROM bookings
         WHERE id = :id
     """)
-
     void delete(@Bind("id") int id);
 
     @SqlQuery("SELECT * FROM bookings WHERE user_id = :userId")

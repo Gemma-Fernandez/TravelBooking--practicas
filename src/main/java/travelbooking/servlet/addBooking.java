@@ -40,15 +40,28 @@ public class addBooking extends HttpServlet {
             int people =
                     Integer.parseInt(request.getParameter("people"));
 
-            double totalPrice =
-                    Double.parseDouble(request.getParameter("totalPrice"));
-
-            LocalDate bookingDate =
-                    LocalDate.parse(request.getParameter("bookingDate"));
 
             boolean confirmed =
                     Boolean.parseBoolean(request.getParameter("confirmed"));
 
+            BookingDao bookingDao =
+                    jdbi.onDemand(BookingDao.class);
+
+            TripDao tripDao =
+                    jdbi.onDemand(TripDao.class);
+
+            // GET TRIP
+            Trip trip =
+                    tripDao.getById(tripId);
+            // BOOKING DATE = TRIP DATE
+            LocalDate bookingDate =
+                    trip.getDepartureDate();
+
+            // CALCULATE TOTAL PRICE
+            double totalPrice =
+                    trip.getPrice() * people;
+
+            // CREATE BOOKING
             Booking booking = new Booking(
                     0,
                     userId,
@@ -59,18 +72,8 @@ public class addBooking extends HttpServlet {
                     confirmed
             );
 
-            BookingDao bookingDao =
-                    jdbi.onDemand(BookingDao.class);
-
-            TripDao tripDao =
-                    jdbi.onDemand(TripDao.class);
-
             // SAVE BOOKING
             bookingDao.add(booking);
-
-            // GET TRIP
-            Trip trip =
-                    tripDao.getById(tripId);
 
             // CALCULATE NEW SEATS
             int newSeats =
