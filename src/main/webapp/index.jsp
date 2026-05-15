@@ -61,7 +61,7 @@
 
                         <a href="tripDetails.jsp?id=<%= t.getId() %>">
                             <% if (t.getImage() != null && !t.getImage().isEmpty()) { %>
-                            <img src="images/<%= t.getImage() %>" class="card-img-top" alt="<%= t.getTitle() %>" style="height: 200px; object-fit: cover;">
+                            <img src="image/<%= t.getImage() %>" class="card-img-top" alt="<%= t.getTitle() %>" style="height: 200px; object-fit: cover;">
                             <% } else { %>
                             <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
                                 No image
