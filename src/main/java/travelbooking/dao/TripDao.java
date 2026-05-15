@@ -1,5 +1,6 @@
 package travelbooking.dao;
 
+import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
@@ -15,6 +16,7 @@ import java.util.List;
 public interface TripDao {
 
     @SqlQuery("SELECT * FROM trips")
+    @RegisterBeanMapper(Trip.class) // Mapea las columnas de DB a atributos de Lombok
     List<Trip> getAll();
 
     @SqlQuery("""
@@ -23,4 +25,19 @@ public interface TripDao {
     """)
     Trip getById(@Bind("id") int id);
 
+    @SqlQuery("SELECT * FROM trips WHERE id = :id")
+    @RegisterBeanMapper(Trip.class)
+    Trip getById(@Bind("id") int id);
+
+    @SqlUpdate("""
+        UPDATE trips 
+        SET title = :title, description = :description, country = :country, 
+            city = :city, price = :price, seats = :seats, 
+            departure_date = :departureDate, active = :active, image = :image, destination_id = :destinationId
+        WHERE id = :id
+    """)
+    void updateTrip(@BindBean Trip trip);
+
+    @SqlUpdate("DELETE FROM trips WHERE id = :id")
+    void deleteTrip(@Bind("id") int id);
 }
