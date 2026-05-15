@@ -63,4 +63,12 @@ public interface UserDao {
             @Bind("email") String email,
             @Bind("password") String password
     );
+
+    // DELETE USER
+    @SqlUpdate("""
+    DELETE FROM users
+    WHERE id = :id
+""")
+
+    void delete(@Bind("id") int id);
 }
