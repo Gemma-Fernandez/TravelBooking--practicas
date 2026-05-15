@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="addTrip" method="POST">
+                    <form action="addTrip" method="POST" enctype="multipart/form-data">
 
                         <div class="mb-3">
                             <label class="form-label">Trip Title</label>
@@ -77,7 +77,12 @@
 
                         <div class="mb-3">
                             <label class="form-label">Image Name (e.g., rome.jpg)</label>
-                            <input type="text" class="form-control" name="image">
+                            <div class="mb-3">
+                                <label class="form-label">Upload Image</label>
+                                <input type="file" class="form-control" name="imageFile" accept="image/*">
+
+                                <input type="hidden" name="destinationId" value="1">
+                            </div>
 
                             <input type="hidden" name="destinationId" value="1">
                         </div>
