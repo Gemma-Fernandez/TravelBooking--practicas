@@ -24,7 +24,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Detalle del Viaje - TravelBooking</title>
+    <title>Trip Details - TravelBooking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -34,7 +34,7 @@
 
 <div class="container mt-5">
 
-    <h2 class="mb-4">Detalle del Viaje</h2>
+    <h2 class="mb-4">Trip Details</h2>
 
     <% if (selectedTrip != null) { %>
     <div class="card shadow-sm p-4">
@@ -44,17 +44,17 @@
             <div class="col-md-8">
                 <h3 class="text-primary"><%= selectedTrip.getTitle() %></h3>
                 <hr>
-                <p><strong>ID del Viaje:</strong> <%= selectedTrip.getId() %></p>
-                <p><strong>Destino:</strong> <%= selectedTrip.getCity() %>, <%= selectedTrip.getCountry() %></p>
-                <p><strong>Descripción:</strong> <%= selectedTrip.getDescription() %></p>
-                <p><strong>Precio:</strong> <%= selectedTrip.getPrice() %> €</p>
-                <p><strong>Plazas Disponibles:</strong> <%= selectedTrip.getSeats() %></p>
-                <p><strong>Fecha de Salida:</strong> <%= selectedTrip.getDepartureDate() %></p>
-                <p><strong>Estado:</strong>
+                <p><strong>Trip ID:</strong> <%= selectedTrip.getId() %></p>
+                <p><strong>Destination:</strong> <%= selectedTrip.getCity() %>, <%= selectedTrip.getCountry() %></p>
+                <p><strong>Description:</strong> <%= selectedTrip.getDescription() %></p>
+                <p><strong>Price:</strong> <%= selectedTrip.getPrice() %> €</p>
+                <p><strong>Available Seats:</strong> <%= selectedTrip.getSeats() %></p>
+                <p><strong>Departure date: </strong> <%= selectedTrip.getDepartureDate() %></p>
+                <p><strong>Status:</strong>
                     <% if (selectedTrip.isActive()) { %>
-                    <span class="badge bg-success">Activo</span>
+                    <span class="badge bg-success">Active</span>
                     <% } else { %>
-                    <span class="badge bg-danger">Inactivo</span>
+                    <span class="badge bg-danger">Inactive</span>
                     <% } %>
                 </p>
             </div>
@@ -64,14 +64,14 @@
                 <% if (selectedTrip.getImage() != null && !selectedTrip.getImage().isEmpty()) { %>
                 <img src="images/<%= selectedTrip.getImage() %>" alt="<%= selectedTrip.getTitle() %>" class="img-fluid rounded shadow-sm" style="max-height: 250px;">
                 <% } else { %>
-                <div class="p-5 bg-light text-muted rounded shadow-sm">Sin imagen disponible</div>
+                <div class="p-5 bg-light text-muted rounded shadow-sm">No image available</div>
                 <% } %>
             </div>
         </div>
 
     </div>
     <% } else { %>
-    <div class="alert alert-warning">No se ha encontrado el viaje solicitado.</div>
+    <div class="alert alert-warning">The requested trip was not found.</div>
     <% } %>
 
     <%
@@ -87,7 +87,7 @@
         }
     %>
 
-    <a href="<%= rutaVolver %>" class="btn btn-secondary mt-4">Volver atrás</a>
+    <a href="<%= rutaVolver %>" class="btn btn-secondary mt-4">Go back</a>
 
 </div>
 

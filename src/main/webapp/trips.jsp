@@ -36,20 +36,20 @@
 
 <div class="container mt-5">
 
-  <h2 class="mb-4">Viajes Disponibles</h2>
+  <h2 class="mb-4">Available Trips</h2>
 
   <table class="table table-bordered table-hover align-middle">
 
     <thead class="table-dark">
     <tr>
       <th>ID</th>
-      <th>Título</th>
-      <th>Destino</th>
-      <th>Precio</th>
-      <th>Plazas</th>
-      <th>Fecha Salida</th>
-      <th>Estado</th>
-      <th>Acciones</th>
+      <th>Title</th>
+      <th>Destination</th>
+      <th>Price</th>
+      <th>Seats</th>
+      <th>Departure date</th>
+      <th>Status</th>
+      <th>Actions</th>
     </tr>
     </thead>
 
@@ -77,18 +77,18 @@
 
       <td>
         <a href="tripDetails.jsp?id=<%= t.getId() %>" class="btn btn-info btn-sm">
-          Ver detalles
+          View Details
         </a>
 
         <% if (currentUser != null && "ADMIN".equals(currentUser.getRole())) { %>
 
         <a href="editTrip.jsp?id=<%= t.getId() %>" class="btn btn-warning btn-sm">
-          Editar
+          Edit
         </a>
 
         <a href="deleteTrip?id=<%= t.getId() %>" class="btn btn-danger btn-sm"
            onclick="return confirm('¿Seguro que quieres eliminar este viaje?')">
-          Eliminar
+          Delete
         </a>
 
         <% } %>
@@ -101,7 +101,7 @@
     } else {
     %>
     <tr>
-      <td colspan="8" class="text-center">No hay viajes disponibles en este momento.</td>
+      <td colspan="8" class="text-center">No trips available at the moment.</td>
     </tr>
     <%
       }
