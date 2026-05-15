@@ -75,20 +75,9 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="destinations.jsp">
-
-                            Destinations
-
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
                            href="bookings.jsp">
 
-                            My Bookings
+                            Bookings
 
                         </a>
 
@@ -146,13 +135,25 @@
                     <li class="nav-item">
 
                         <a class="nav-link"
-                           href="payments.jsp">
+                           href="searchUsers.jsp">
 
-                            Payments
+                            Search User
 
                         </a>
 
                     </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="searchBookings.jsp">
+
+                            Search Booking
+
+                        </a>
+
+                    </li>
+
 
                     <% } %>
 

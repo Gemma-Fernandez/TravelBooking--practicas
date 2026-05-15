@@ -51,6 +51,15 @@ public interface BookingDao {
 
     void update(@BindBean Booking booking);
 
+    @SqlQuery("""
+    SELECT * FROM bookings
+    WHERE
+        CAST(user_id AS CHAR) LIKE CONCAT('%', :search, '%')
+        OR CAST(trip_id AS CHAR) LIKE CONCAT('%', :search, '%')
+""")
+
+    List<Booking> searchBookings(@Bind("search") String search);
+
     // DELETE BOOKING
     @SqlUpdate("""
         DELETE FROM bookings
