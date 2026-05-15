@@ -45,16 +45,18 @@ public interface TripDao {
 
     // SEARCH TRIPS
     @SqlQuery("""
-    SELECT * FROM trips 
-    WHERE title LIKE CONCAT('%', :search, '%') 
-       OR country LIKE CONCAT('%', :search, '%') 
-       OR city LIKE CONCAT('%', :search, '%')
-""")
-    List<Trip> searchTrips(@Bind("search") String search);
+        SELECT * FROM trips
+        WHERE active = true
+        AND (
+            LOWER(title) LIKE LOWER(CONCAT('%', :search, '%'))
+            OR LOWER(country) LIKE LOWER(CONCAT('%', :search, '%'))
+            OR LOWER(city) LIKE LOWER(CONCAT('%', :search, '%'))
+        )
+    """)
 
     @RegisterBeanMapper(Trip.class)
 
-
+    List<Trip> searchTrips(@Bind("search") String search);
 
     // ADD TRIP
     @SqlUpdate("""
