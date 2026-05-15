@@ -1,5 +1,23 @@
+<%@ page import="java.util.List" %>
+
+<%@ page import="travelbooking.dao.Database" %>
+<%@ page import="travelbooking.dao.TripDao" %>
+
+<%@ page import="travelbooking.model.Trip" %>
+
 <%@ page contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+
+<%
+
+  Database.connect();
+
+  List<Trip> trips =
+          Database.jdbi
+                  .onDemand(TripDao.class)
+                  .getAll();
+
+%>
 
 <!doctype html>
 <html lang="en">
@@ -32,19 +50,49 @@
   <form method="post"
         action="addBooking">
 
-    <!-- USER ID -->
-    <input type="number"
-           name="userId"
-           class="form-control mb-3"
-           placeholder="User ID"
-           required>
+    <!-- USER -->
+    <label class="form-label">
+      User
+    </label>
 
-    <!-- TRIP ID -->
-    <input type="number"
-           name="tripId"
+    <input type="text"
            class="form-control mb-3"
-           placeholder="Trip ID"
-           required>
+           value="<%= user.getName() %>"
+           disabled>
+
+    <!-- HIDDEN USER ID -->
+    <input type="hidden"
+           name="userId"
+           value="<%= user.getId() %>">
+
+    <!-- TRIP -->
+    <label class="form-label">
+      Select Trip
+    </label>
+
+    <select name="tripId"
+            class="form-control mb-3"
+            required>
+
+      <%
+
+        for(Trip trip : trips){
+
+      %>
+
+      <option value="<%= trip.getId() %>">
+
+        <%= trip.getTitle() %>
+
+      </option>
+
+      <%
+
+        }
+
+      %>
+
+    </select>
 
     <!-- PEOPLE -->
     <input type="number"
