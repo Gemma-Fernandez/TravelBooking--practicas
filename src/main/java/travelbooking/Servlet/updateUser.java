@@ -1,4 +1,4 @@
-package travelbooking.Servlet;
+package travelbooking.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
