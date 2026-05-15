@@ -14,7 +14,6 @@
 
   int id = Integer.parseInt(request.getParameter("id"));
 
-  User user = userDao.getById(id);
 
 %>
 
