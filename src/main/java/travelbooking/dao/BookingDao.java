@@ -23,6 +23,8 @@ public interface BookingDao {
         SELECT * FROM bookings
         WHERE id = :id
     """)
+
+
     Booking getById(@Bind("id") int id);
 
     // ADD BOOKING
@@ -63,4 +65,7 @@ public interface BookingDao {
         WHERE id = :id
     """)
     void delete(@Bind("id") int id);
+
+    @SqlQuery("SELECT * FROM bookings WHERE user_id = :userId")
+    List<Booking> getByUserId(@Bind("userId") int userId);
 }
