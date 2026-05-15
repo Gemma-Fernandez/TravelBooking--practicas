@@ -49,4 +49,10 @@ public interface TripDao {
 
     @SqlUpdate("DELETE FROM trips WHERE id = :id")
     void deleteTrip(@Bind("id") int id);
+
+    @SqlUpdate("""
+        INSERT INTO trips (title, description, country, city, price, seats, departure_date, active, image, destination_id)
+        VALUES (:title, :description, :country, :city, :price, :seats, :departureDate, :active, :image, :destinationId)
+    """)
+    void addTrip(@BindBean Trip trip);
 }
