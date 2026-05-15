@@ -30,4 +30,7 @@ public interface TripDao {
         WHERE id = :id
     """)
     void updateTrip(@BindBean Trip trip);
+
+    @SqlUpdate("DELETE FROM trips WHERE id = :id")
+    void deleteTrip(@Bind("id") int id);
 }
