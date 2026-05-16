@@ -38,6 +38,25 @@
 
   <h2 class="mb-4">Available Trips</h2>
 
+  <%-- ALERTAS DE BORRADO --%>
+  <%
+    String error = request.getParameter("error");
+    String success = request.getParameter("success");
+
+    if ("hasBookings".equals(error)) {
+  %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Action denied!</strong> This trip cannot be deleted because it currently has active bookings.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } else if ("deleted".equals(success)) { %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> The trip has been successfully deleted.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+
+
   <table class="table table-bordered table-hover align-middle">
 
     <thead class="table-dark">
@@ -86,10 +105,9 @@
           Edit
         </a>
 
-        <a href="deleteTrip?id=<%= t.getId() %>" class="btn btn-danger btn-sm"
-           onclick="return confirm('¿Seguro que quieres eliminar este viaje?')">
-          Delete
-        </a>
+        <a href="deleteTrip?id=<%= t.getId() %>"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Are you sure?')">Delete</a>
 
         <% } %>
       </td>
