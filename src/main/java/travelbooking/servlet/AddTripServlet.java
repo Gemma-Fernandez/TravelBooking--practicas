@@ -46,7 +46,7 @@ public class AddTripServlet extends HttpServlet {
             fileName = "";
         } else {
             // Buscamos la ruta temporal donde Tomcat está ejecutando tu app web
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "image";
 
             // Si la carpeta "images" no existe ahí, la creamos
             File uploadDir = new File(uploadPath);

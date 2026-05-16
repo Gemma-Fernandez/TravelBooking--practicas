@@ -62,7 +62,7 @@
 
             <div class="col-md-4 text-center">
                 <% if (selectedTrip.getImage() != null && !selectedTrip.getImage().isEmpty()) { %>
-                <img src="images/<%= selectedTrip.getImage() %>" alt="<%= selectedTrip.getTitle() %>" class="img-fluid rounded shadow-sm" style="max-height: 250px;">
+                <img src="image/<%= selectedTrip.getImage() %>" alt="<%= selectedTrip.getTitle() %>" class="img-fluid rounded shadow-sm" style="max-height: 250px;">
                 <% } else { %>
                 <div class="p-5 bg-light text-muted rounded shadow-sm">No image available</div>
                 <% } %>
