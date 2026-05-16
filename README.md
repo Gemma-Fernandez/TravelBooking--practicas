@@ -347,7 +347,7 @@ para crear una interfaz moderna y responsive.
 
 # 📌 Autor
 
-## 👨‍💻 Adrián Gabás Andreu / GEMMA FERNANDEZ / PETER ESMARITO
+## 👨‍💻 ADRIAN GABAS / GEMMA FERNANDEZ / PETER ESMARITO
 
 Proyecto desarrollado para:
 
