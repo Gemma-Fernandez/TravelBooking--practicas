@@ -13,7 +13,9 @@ La aplicación permite:
 
 El proyecto sigue una arquitectura basada en:
 
+```text
 Modelo → DAO → Servlet → JSP
+```
 
 y utiliza MariaDB como base de datos relacional.
 
@@ -82,6 +84,7 @@ y utiliza MariaDB como base de datos relacional.
 
 # 🗄️ Modelo Relacional
 
+```text
 users [PK id, name, email, password, role, balance, active, register_date]
 
 destinations [PK id, name, description, country, image, popular, active, created_at]
@@ -91,6 +94,7 @@ trips [PK id, title, description, country, city, price, seats, departure_date, a
 bookings [PK id, people, total_price, booking_date, confirmed, FK user_id, FK trip_id]
 
 payments [PK id, amount, payment_method, payment_date, completed, FK booking_id]
+```
 
 ---
 
@@ -98,7 +102,9 @@ payments [PK id, amount, payment_method, payment_date, completed, FK booking_id]
 
 ## 👤 Users ↔ Bookings
 
+```text
 Users (1) ←→ (N) Bookings
+```
 
 - Un usuario puede realizar muchas reservas
 - Cada reserva pertenece a un único usuario
@@ -107,7 +113,9 @@ Users (1) ←→ (N) Bookings
 
 ## ✈️ Trips ↔ Bookings
 
+```text
 Trips (1) ←→ (N) Bookings
+```
 
 - Un viaje puede tener muchas reservas
 - Cada reserva pertenece a un único viaje
@@ -116,7 +124,9 @@ Trips (1) ←→ (N) Bookings
 
 ## 🌍 Destinations ↔ Trips
 
+```text
 Destinations (1) ←→ (N) Trips
+```
 
 - Un destino puede tener muchos viajes
 - Cada viaje pertenece a un único destino
@@ -125,7 +135,9 @@ Destinations (1) ←→ (N) Trips
 
 ## 💳 Bookings ↔ Payments
 
+```text
 Bookings (1) ←→ (N) Payments
+```
 
 - Una reserva puede tener varios pagos
 - Cada pago pertenece a una única reserva
@@ -136,14 +148,13 @@ Bookings (1) ←→ (N) Payments
 
 ## 📷 Diagrama ER
 
-Añadir aquí la imagen del diagrama entidad-relación:
-
 ![Diagrama ER](images/diagrama-er.png)
 
 ---
 
 # 📁 Estructura del proyecto
 
+```text
 src
  ├── main
  │    ├── java
@@ -155,6 +166,7 @@ src
  │          ├── includes
  │          ├── images
  │          ├── *.jsp
+```
 
 ---
 
@@ -211,11 +223,15 @@ Ejemplos:
 
 Motor utilizado:
 
+```text
 MariaDB
+```
 
 Conexión realizada mediante:
 
+```text
 JDBI + JDBC
+```
 
 ---
 
@@ -245,8 +261,10 @@ Cuando un usuario realiza una reserva:
 
 Existen dos roles:
 
+```text
 ADMIN
 USER
+```
 
 Los administradores pueden:
 - editar
@@ -255,11 +273,73 @@ Los administradores pueden:
 
 ---
 
+# ▶️ Puesta en marcha del proyecto
+
+## 📌 Requisitos
+
+Antes de ejecutar el proyecto es necesario tener instalado:
+
+- Java JDK 21+
+- Apache Maven
+- Apache Tomcat
+- MariaDB
+- IntelliJ IDEA
+
+---
+
+# ⚙️ Configuración de la base de datos
+
+Crear una base de datos en MariaDB:
+
+```sql
+CREATE DATABASE travelbooking;
+```
+
+Configurar las credenciales en:
+
+```text
+Database.java
+```
+
+---
+
+# 🚀 Ejecutar el proyecto
+
+Abrir una terminal en la raíz del proyecto y ejecutar:
+
+```bash
+mvn tomcat7:redeploy
+```
+
+---
+
+# 🌐 Acceso a la aplicación
+
+Una vez desplegado:
+
+```text
+http://localhost:8080/TravelBooking
+```
+
+o el puerto configurado en Tomcat.
+
+---
+
+# ✅ Compilar el proyecto
+
+```bash
+mvn clean package
+```
+
+---
+
 # 🎨 Diseño
 
 La interfaz utiliza:
 
+```text
 Bootstrap 5
+```
 
 para crear una interfaz moderna y responsive.
 
@@ -271,13 +351,17 @@ para crear una interfaz moderna y responsive.
 
 Proyecto desarrollado para:
 
+```text
 DAM - Desarrollo de Aplicaciones Multiplataforma
+```
 
 ---
 
 # ✅ Estado del proyecto
 
+```text
 Proyecto funcional y operativo
+```
 
 Incluye:
 - CRUD completo
