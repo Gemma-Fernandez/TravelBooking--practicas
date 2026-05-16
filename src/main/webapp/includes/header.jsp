@@ -211,3 +211,33 @@
     </nav>
 
 </header>
+
+<div class="container" style="padding-top: 80px;">
+<%
+    // Recuperamos los mensajes de la sesión
+    String flashError = (String) session.getAttribute("flashError");
+    String flashSuccess = (String) session.getAttribute("flashSuccess");
+
+    // Si hay un error, lo mostramos en rojo y lo borramos de la sesión
+    if (flashError != null) {
+%>
+<div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+    <%= flashError %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%
+        session.removeAttribute("flashError");
+    }
+
+    // Si hay un éxito, lo mostramos en verde y lo borramos de la sesión
+    if (flashSuccess != null) {
+%>
+<div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+    <%= flashSuccess %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%
+        session.removeAttribute("flashSuccess");
+    }
+%>
+</div>

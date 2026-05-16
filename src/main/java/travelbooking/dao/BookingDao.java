@@ -66,4 +66,10 @@ public interface BookingDao {
     // GET BOOKINGS FOR A SPECIFIC USER
     @SqlQuery("SELECT * FROM bookings WHERE user_id = :userId")
     List<Booking> getByUserId(@Bind("userId") int userId);
+
+    @SqlQuery("SELECT COUNT(*) FROM bookings WHERE trip_id = :tripId")
+    int countBookingsByTripId(@Bind("tripId") int tripId);
+
+    @SqlQuery("SELECT COUNT(*) FROM bookings WHERE user_id = :userId")
+    int countBookingsByUserId(@Bind("userId") int userId);
 }
